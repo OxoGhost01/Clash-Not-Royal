@@ -1,0 +1,4 @@
+- add differents phrases when enter wrong input
+- beautify the interface
+- add sleeps
+- add more commands (more mods)
