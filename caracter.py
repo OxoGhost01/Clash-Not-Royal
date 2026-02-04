@@ -11,11 +11,5 @@ class Player:
     def set_score(self, score):
         self.score = score
 
-    def update_health(self):
-        total_health = 0
-        for card in self.deck:
-            total_health += card.health
-        self.health = total_health
-
     def add_card(self, card):
         self.deck.append(card)

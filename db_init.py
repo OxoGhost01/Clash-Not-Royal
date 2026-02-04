@@ -79,60 +79,82 @@ collection.insert_many([
         "name": "Chevalier",
         "attack": 15,
         "defense": 10,
-        "health": 100
+        "health": 100,
+        "type": "tank",
+        "effect_chance": 0.25,
+        "effect_damage": 5,
+        "effect_duration": 2
     },
     {
         "name": "Sorcier",
         "attack": 20,
         "defense": 5,
-        "health": 80
+        "health": 80,
+        "type": "sorcerer",
+        "effect_chance": 0.3,
+        "effect_damage": 4,
+        "effect_duration": 3
     },
     {
         "name": "Archères",
         "attack": 18,
         "defense": 7,
-        "health": 90
+        "health": 90,
+        "type": "dps"
     },
     {
         "name": "Cheffe des voleuses",
         "attack": 22,
         "defense": 10,
-        "health": 100
+        "health": 100,
+        "type": "dps"
     },
     {
         "name": "Moine",
         "attack": 14,
         "defense": 12,
-        "health": 110
+        "health": 110,
+        "type": "tank",
+        "effect_chance": 0.2,
+        "effect_damage": 6,
+        "effect_duration": 2
     },
     {
         "name": "Bucheron",
         "attack": 25,
         "defense": 3,
-        "health": 70
+        "health": 70,
+        "type": "dps"
     },
     {
         "name": "Voleur",
         "attack": 17,
         "defense": 15,
-        "health": 120
+        "health": 120,
+        "type": "tank",
+        "effect_chance": 0.25,
+        "effect_damage": 5,
+        "effect_duration": 2
     },
     {
         "name": "P.E.K.K.A",
         "attack": 19,
         "defense": 9,
-        "health": 95
+        "health": 95,
+        "type": "dps"
     },
     {
         "name": "Chevaucheur de cochons",
         "attack": 23,
         "defense": 6,
-        "health": 105
+        "health": 105,
+        "type": "dps"
     },
     {
         "name": "Molosse de lave",
         "attack": 16,
         "defense": 11,
-        "health": 100
+        "health": 100,
+        "type": "dps"
     }
 ])

@@ -1,4 +1,5 @@
 from card import *
+from random import choice
 
 class Game:
     def __init__(self, player):
@@ -16,7 +17,7 @@ class Game:
         else:
             for i, card in enumerate(self.player.deck, start=1):
                 print(f"{i}. {card}")
-        print("\n")
+        print()
 
     def printPlayableCards(self, playable):
         for i, card in enumerate(playable, start=1):
@@ -45,8 +46,11 @@ class Game:
         
         choice = self.deckConfirmation()
         if not choice: self.init_deck()
-        self.player.update_health()
 
+
+    def playerIsAlive(self):
+        return any(card.health > 0 for card in self.player.deck)
+    
     def clash(self):
         print("\n\n====== Clash ======\n")
         wave = 0
@@ -60,35 +64,46 @@ class Game:
     def init_all_cards(self):
         heros = get_all_heros()
         for hero in heros:
-            self.heros.append(Card(hero["name"], hero["attack"], hero["defense"], hero["health"]))
+            self.heros.append(Card(
+                hero["name"], hero["attack"], hero["defense"], hero["health"],
+                hero.get("type", "dps"), hero.get("effect_chance", 0),
+                hero.get("effect_damage", 0), hero.get("effect_duration", 0)
+            ))
 
     def choose_monster(self):
         monster = pick_monster()
         return Card(monster["name"], monster["attack"], monster["defense"], monster["health"])
 
     def wave(self):
-        while self.isMonsterAlive():
+        while self.isMonsterAlive() and self.playerIsAlive():
             print("\nYour deck :")
             self.printDeck()
-            print("\nMonster :")
+            print("Monster :")
             print(self.monster)
+            print()
             self.playerTurn()
-            self.monsterTurn()
-            self.printDeck()
-
-    def playerIsAlive(self):
-        self.player.update_health()
-        return self.player.health > 0
+            if self.isMonsterAlive():
+                self.monsterTurn()
     
     def isMonsterAlive(self):
         return self.monster.health > 0
 
     def playerTurn(self):
         print("\n====== Player turn ======")
+        self.monster.tick_effects()
+        if not self.isMonsterAlive():
+            return
         for card in self.player.deck:
-            card.attack_target(self.monster)
-    
+            if card.health > 0:
+                card.attack_target(self.monster)
+                if not self.isMonsterAlive():
+                    break
+
     def monsterTurn(self):
         print("\n====== Monster turn ======")
         for card in self.player.deck:
-            self.monster.attack_target(card)
+            if card.health > 0:
+                card.tick_effects()
+        alive = [c for c in self.player.deck if c.health > 0]
+        if alive:
+            self.monster.attack_target(choice(alive))

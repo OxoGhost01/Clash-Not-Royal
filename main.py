@@ -3,6 +3,13 @@ from utils import *
 from game import Game
 from caracter import Player
 
+
+MENU_CHOICE = [
+    lambda : play(),
+    lambda : show_leaderboard(),
+    lambda : exit()
+]
+
 def menu():
     print("=========== Welcome to Clash Not Royal ===========\n\n")
 
@@ -10,15 +17,7 @@ def menu():
 
     choice = verify_player_input("> ", 1, 3)
 
-    if choice == 1:
-        play()
-        show_leaderboard()
-    elif choice == 2:
-        show_leaderboard()
-    elif choice == 3:
-        exit()
-    else:
-        print("Why not entering a valid number you deepshit ?\n")
+    MENU_CHOICE[choice - 1]()
 
     print("========== Goodbye ==========")
 
