@@ -7,6 +7,11 @@ class Game:
         self.monster = None
         self.heros = []
         self.init_all_cards()
+        self.LOOT_EFFECT = {
+            "attack": lambda card, val: setattr(card, "attack", card.attack + val),
+            "defense": lambda card, val: setattr(card, "defense", card.defense + val),
+            "health": lambda card, val: setattr(card, "health", card.health + val)
+        }
 
     def isDeckFull(self):
         return len(self.player.deck) == 3
@@ -47,9 +52,11 @@ class Game:
         choice = self.deckConfirmation()
         if not choice: self.init_deck()
 
-
     def playerIsAlive(self):
         return any(card.health > 0 for card in self.player.deck)
+    
+    def playerCardsAlive(self):
+        return [card for card in self.player.deck if card.health > 0]
     
     def clash(self):
         print("\n\n====== Clash ======\n")
@@ -60,6 +67,8 @@ class Game:
             print(f"\n\n====== Wave {wave} ======\n")
             self.monster = self.choose_monster()
             self.wave()
+            drop = self.drop()
+            if drop: self.use_loot(drop)
 
     def init_all_cards(self):
         heros = get_all_heros()
@@ -104,6 +113,17 @@ class Game:
         for card in self.player.deck:
             if card.health > 0:
                 card.tick_effects()
-        alive = [c for c in self.player.deck if c.health > 0]
+        alive = self.playerCardsAlive()
         if alive:
             self.monster.attack_target(choice(alive))
+
+    def drop(self):
+        return get_loot()
+
+    def print_loot(loot):
+        print(f"You found a {loot['name']} | effect: {loot['effect']}")
+    
+    def use_loot(self, loot):
+        self.print_loot(loot)
+        choice = verify_player_input("Use the loot on who ? ", 1, len(self.player.deck))
+        self.LOOT_EFFECT[loot["effect"]](self.player.deck[choice - 1], loot["value"])

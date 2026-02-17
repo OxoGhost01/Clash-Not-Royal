@@ -39,3 +39,6 @@ def update_leaderboard(player):
         db.players.update_one({"name": player.name}, {"$inc": {"score": player.score}})
     else:
         db.players.insert_one({"name": player.name, "score": player.score})
+
+def get_loot():
+    return db.loot.aggregate([{"$sample": {"size": 1}}]).next()

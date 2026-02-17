@@ -47,7 +47,7 @@ collection.insert_many([
     {
         "name": "Golem",
         "attack": 30,
-        "defense": 25,
+        "defense": 20,
         "health": 250
     },
     {
@@ -141,7 +141,7 @@ collection.insert_many([
         "attack": 19,
         "defense": 9,
         "health": 95,
-        "type": "dps"
+        "type": "tank"
     },
     {
         "name": "Chevaucheur de cochons",
@@ -157,4 +157,47 @@ collection.insert_many([
         "health": 100,
         "type": "dps"
     }
+])
+
+
+collection = db.loot
+
+collection.drop()
+
+collection.insert_many([
+    {
+        "name": "Potion de soin",
+        "effet": "health",
+        "value": 20
+    },
+    {
+        "name": "Potion de mana",
+        "effect": "health",
+        "value": 20
+    },
+    {
+        "name": "Potion de force",
+        "effect": "health",
+        "value": 20
+    },
+    {
+        "name": "Potion de poison",
+        "effect": "health",
+        "value": -20
+    },
+    {
+        "name": "Potion de faiblesse",
+        "effect": "attack",
+        "value": -5
+    },
+    {
+        "name": "Potion de fragilité",
+        "effect": "defense",
+        "value": -5
+    },
+    {
+        "name": "Potion de mort",
+        "effect": "health",
+        "value": -1000
+    },    
 ])
