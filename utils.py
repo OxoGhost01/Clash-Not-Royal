@@ -41,4 +41,7 @@ def update_leaderboard(player):
         db.players.insert_one({"name": player.name, "score": player.score})
 
 def get_loot():
-    return db.loot.aggregate([{"$sample": {"size": 1}}]).next()
+    if random.randint(1, 2) == 1:
+        return db.loot.aggregate([{"$sample": {"size": 1}}]).next()
+    else:
+        return db.equipment.aggregate([{"$sample": {"size": 1}}]).next()
