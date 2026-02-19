@@ -201,3 +201,34 @@ collection.insert_many([
         "value": -1000
     },    
 ])
+
+collection = db.equipments
+
+collection.drop()
+
+collection.insert_many([
+    {
+        "name": "Armure de fer",
+        "attack": 0,
+        "defense": 10,
+        "health": 0
+    },
+    {
+        "name": "Armure de cuir",
+        "attack": 0,
+        "defense": 5,
+        "health": 0
+    },
+    {
+        "name": "Armure de cuir lourd",
+        "attack": 0,
+        "defense": 15,
+        "health": 0
+    },
+    {
+        "name": "Armure de à épines",
+        "attack": 5,
+        "defense": 0,
+        "health": 0
+    }
+])

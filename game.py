@@ -120,10 +120,12 @@ class Game:
     def drop(self):
         return get_loot()
 
-    def print_loot(loot):
-        print(f"You found a {loot['name']} | effect: {loot['effect']}")
+    @staticmethod
+    def printLoot(loot):
+        print(f"You found a {loot['name']} | effect: {loot['effect']} {loot['value']}")
     
     def use_loot(self, loot):
-        self.print_loot(loot)
+        self.printLoot(loot)
+        self.printDeck()
         choice = verify_player_input("Use the loot on who ? ", 1, len(self.player.deck))
         self.LOOT_EFFECT[loot["effect"]](self.player.deck[choice - 1], loot["value"])
